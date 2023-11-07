@@ -7,7 +7,6 @@ os.chdir("c:\\users\\aiden\\onedrive\\desktop")
 
 def main():
     print("Welcome to the PAQ database entry TUI please select one of the following options and hit enter:")
-
     while True:
         print ("A). Update PAQ database with SLRP data from the most current")
         usrSelect=input()
