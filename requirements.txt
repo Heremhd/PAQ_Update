@@ -1,0 +1,5 @@
+Pillow~=10.1.0
+setuptools~=65.5.0
+pandas~=1.5.3
+openpyxl~=3.1.2
+styleframe~=4.1
