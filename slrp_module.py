@@ -48,10 +48,29 @@ def getCopySLRPReport():
         filtered_df["NOA1 Desc"].str.contains("Recruitment Incentive", case=False, na=False, regex=True)]
     filter_SLRP = filtered_df[
         filtered_df["NOA1 Desc"].str.contains("Student Loan Repayment", case=False, na=False, regex=True)]
+    filter_RI = filter_RI[[
+        'Employee Number', 'FY', 'Name Employee', 'Pay Plan', 'Series', 'Grade', 'Career Field',
+        'STEM Series', 'MCO Series', 'MCO Risk Level',
+        'Org Struc Code', 'Owning Cmd Id', 'Own Cmd', 'Own Cmd Desc', 'Unit',
+        'Location', 'Record Status', 'PEC', 'PEC Desc', 'Incentive Type',
+        '.Pay Period Ending Date', 'Nature of Action (HR).Effective Date',
+        'NOA1', 'NOA1 Desc', 'Retention Incentive Pay Last PPE',
+        'Retention Incentive Percent', 'Student Loan Repayment Amount',
+        'Annual Amount']]
+    filter_SLRP = filter_SLRP[[
+        'Employee Number', 'FY', 'Name Employee', 'Pay Plan', 'Series', 'Grade', 'Career Field',
+        'STEM Series', 'MCO Series', 'MCO Risk Level',
+        'Org Struc Code', 'Owning Cmd Id', 'Own Cmd', 'Own Cmd Desc', 'Unit',
+        'Location', 'Record Status', 'PEC', 'PEC Desc', 'Incentive Type',
+        '.Pay Period Ending Date', 'Nature of Action (HR).Effective Date',
+        'NOA1', 'NOA1 Desc', 'Retention Incentive Pay Last PPE',
+        'Retention Incentive Percent', 'Student Loan Repayment Amount',
+        'Annual Amount']]
     sf1 = StyleFrame(filter_RI, styler_obj=Styler(font_size=8))
     sf2 = StyleFrame(filter_SLRP, styler_obj=Styler(font_size=8))
     sf2.apply_headers_style(styler_obj=Styler(bold=True, bg_color=utils.colors.grey, font_size=8))
     sf1.apply_headers_style(styler_obj=Styler(bold=True, bg_color=utils.colors.grey, font_size=8))
+
     wb = xl.workbook.workbook.Workbook()
     wb.save(".//DP2Z Analysis//test.xlsx")
     with pd.ExcelWriter(
