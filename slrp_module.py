@@ -47,8 +47,8 @@ def getCopySLRPReport():
     sf2 = StyleFrame(filter_SLRP, styler_obj=Styler(font_size=8))
     sf2.apply_headers_style(styler_obj=Styler(bold=True, bg_color=utils.colors.grey, font_size=8,))
     sf1.apply_headers_style(styler_obj=Styler(bold=True, bg_color=utils.colors.grey, font_size=8))
-    sf1.to_excel(".//DP2Z Analysis//test.xlsx", "Recruitment Incentive").save()
-    sf2.to_excel(".//DP2Z Analysis//test2.xlsx", "Student Loan Repayment").save()
+    sf1.to_excel(".//DP2Z Analysis//test.xlsx", sheet_name="Recruitment Incentive").save()
+    sf2.to_excel(".//DP2Z Analysis//test.xlsx", sheet_name="Student Loan Repayment").save()
 
 
 
