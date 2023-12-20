@@ -16,9 +16,9 @@ def console_loop():
     while True:
         print("A). Update PAQ database with SLRP data from the most current")
         usrSelect = input()
-        if (not re.match("[AaBbCc]", usrSelect)):
+        if not re.match("[AaBbCc]", usrSelect):
             print("ERROR: Invalid option. Please Enter A Letter Corresponding to the menu and press enter")
-        elif (re.match("[Aa]", usrSelect)):
+        elif re.match("[Aa]", usrSelect):
             getCopySLRPReport(analyticsDirectory)
 
 
@@ -71,13 +71,11 @@ def getCopySLRPReport():
     sf2.apply_headers_style(styler_obj=Styler(bold=True, bg_color=utils.colors.grey, font_size=8))
     sf1.apply_headers_style(styler_obj=Styler(bold=True, bg_color=utils.colors.grey, font_size=8))
 
-    wb = xl.workbook.workbook.Workbook()
-    wb.save(".//DP2Z Analysis//test.xlsx")
     with pd.ExcelWriter(
-            ".//DP2Z Analysis//test.xlsx",
-            mode="a",
+            ".//DP2Z Analysis//temp.xlsx",
+            mode="w",
             engine="openpyxl",
-            if_sheet_exists="replace",
+            # if_sheet_exists="overlay",
     ) as writer:
         sf1.to_excel(writer, sheet_name="Recruitment Incentive")
         sf2.to_excel(writer, sheet_name="Student Loan Repayment").close()
