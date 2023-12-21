@@ -25,7 +25,7 @@ class Window(Tk):
     def load_options_frame(self):
         for i in self.place_slaves():
             i.destroy()
-        bg = PhotoImage(file=r'C:\Users\Aiden\PycharmProjects\PAQ_Update\images\AFPC.png')
+        bg = PhotoImage(file=fr'{root}\images\AFPC.png')
         bgLabel = Label(image=bg, width=568, height=568)
         bgLabel.image = bg
         bgLabel.place(y=0, x=0, width=568, height=568)
