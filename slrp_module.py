@@ -1,5 +1,4 @@
 import sys
-
 import pandas as pd  # used for retrieving data from Excel
 import os  # adjusts app based on Windows/Linux/Unix etc
 import re  # regex
@@ -20,20 +19,23 @@ root = os.path.dirname(os.path.abspath(sys.argv[0]))
 
 
 def getSLRPReport(path):
-    if os.path.isfile(root + r'\data'):
-        os.mkdir((root + r'\data'), 777)
-
+    if os.path.isfile(path):
+        os.mkdir(path, 777)
     else:
-        for file_path in os.listdir(path + '\\data\\'):
+        for file_path in os.listdir(path):
+            print(path + file_path)
             if os.path.isfile(path + file_path) and (re.search("SLRP", file_path)):
+                print(path + file_path)
                 return path + file_path
+                break
             else:
                 messagebox.showinfo(title="FileNotFoundError", message="ERROR: SLRP report not found in location: "
                                                                        f"{path}\\data\\")
 
 
 def filterSLRP():
-    path = root
+    path = root + "\\data\\"
+    print(path)
     SLRP_Report = getSLRPReport(path)
     SLRP_Report = pd.read_excel(SLRP_Report)
 
