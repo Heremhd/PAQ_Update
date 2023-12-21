@@ -19,26 +19,26 @@ root = os.path.dirname(os.path.abspath(sys.argv[0]))
 
 
 def getSLRPReport(path):
-    if os.path.isfile(path):
-        os.mkdir(path, 777)
-    else:
+    if os.path.isdir(path):
         for file_path in os.listdir(path):
-            print(path + file_path)
             if os.path.isfile(path + file_path) and (re.search("SLRP", file_path)):
-                print(path + file_path)
                 return path + file_path
                 break
             else:
                 messagebox.showinfo(title="FileNotFoundError", message="ERROR: SLRP report not found in location: "
-                                                                       f"{path}\\data\\")
+                                                                       f"{path}")
+    else:
+        os.mkdir(root + r'\data', 777)
+        messagebox.showinfo(title="Directory Error", message="ERROR: Data folder did not exist. Program will "
+                                                             "now create one "
+                                                             f"{path}")
 
 
 def filterSLRP():
     path = root + "\\data\\"
     print(path)
-    SLRP_Report = getSLRPReport(path)
-    SLRP_Report = pd.read_excel(SLRP_Report)
-
+    SLRP_Report = pd.read_excel(getSLRPReport(path), sheet_name="Incentives Summary")
+    print(SLRP_Report)
     filtered_df = SLRP_Report[SLRP_Report["Org Struc Code"].str.contains("dpcpaq", case=False, na=False, regex=True)]
     filtered_df2 = filtered_df[
         filtered_df["Career Field"].str.contains("Scientist And Engineer", case=False, na=False, regex=True)]
