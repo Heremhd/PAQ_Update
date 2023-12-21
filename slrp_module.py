@@ -71,7 +71,7 @@ def filterSLRP():
     sf1.apply_headers_style(styler_obj=Styler(bold=True, bg_color=utils.colors.grey, font_size=8))
 
     with pd.ExcelWriter(
-            ".//DP2Z Analysis//temp.xlsx",
+            f"{root}\\output.xlsx",
             mode="w",
             engine="openpyxl",
             # if_sheet_exists="overlay",
