@@ -4,6 +4,8 @@ import os  # adjusts app based on Windows/Linux/Unix etc
 import re  # regex
 from styleframe import StyleFrame, Styler, utils
 from tkinter import messagebox
+from employee_data import *
+from backup_files import *
 
 # def console_loop():
 #    print("Welcome to the PAQ database entry TUI please select one of the following options and hit enter:")
@@ -16,6 +18,7 @@ from tkinter import messagebox
 #            getCopySLRPReport(analyticsDirectory)
 
 root = os.path.dirname(os.path.abspath(sys.argv[0]))
+
 
 
 def getSLRPReport(path):
@@ -38,7 +41,6 @@ def filterSLRP():
     path = root + "\\data\\"
     print(path)
     SLRP_Report = pd.read_excel(getSLRPReport(path), sheet_name="Incentives Summary")
-    print(SLRP_Report)
     filtered_df = SLRP_Report[SLRP_Report["Org Struc Code"].str.contains("dpcpaq", case=False, na=False, regex=True)]
     filtered_df2 = filtered_df[
         filtered_df["Career Field"].str.contains("Scientist And Engineer", case=False, na=False, regex=True)]
@@ -67,6 +69,14 @@ def filterSLRP():
         'Retention Incentive Percent', 'Student Loan Repayment Amount',
         'Annual Amount']]
 
+    for i in filtered_df.index:
+        paq = PAQ(filtered_df._get_value(i, 'Name Employee'), filtered_df._get_value(i, 'STEM Series'),
+                  filtered_df._get_value(i, 'Employee Number'), filtered_df._get_value(i, 'Record Status'))
+        emptdat = open("employees.dat", "w")
+        emptdat.seek(paq.empID)
+        emptdat.write(str(paq.empID) + " " + str(paq.name) + " " + str(paq.field) + " " + str(paq.employed))
+        paq.paqUpdateList()
+
     sf1 = StyleFrame(filter_RI, styler_obj=Styler(font_size=8))
     sf2 = StyleFrame(filter_SLRP, styler_obj=Styler(font_size=8))
     sf2.apply_headers_style(styler_obj=Styler(bold=True, bg_color=utils.colors.grey, font_size=8))
@@ -80,3 +90,4 @@ def filterSLRP():
     ) as writer:
         sf1.to_excel(writer, sheet_name="Recruitment Incentive")
         sf2.to_excel(writer, sheet_name="Student Loan Repayment").close()
+

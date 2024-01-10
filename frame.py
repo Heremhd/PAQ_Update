@@ -1,7 +1,6 @@
 from slrp_module import *
 from tkinter import *
 
-
 class Window(Tk):
 
     def __init__(self):
