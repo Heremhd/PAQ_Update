@@ -4,8 +4,11 @@ import os  # adjusts app based on Windows/Linux/Unix etc
 import re  # regex
 from styleframe import StyleFrame, Styler, utils
 from tkinter import messagebox
+
+import employee_data
 from employee_data import *
 from backup_files import *
+from ctypes import *
 
 # def console_loop():
 #    print("Welcome to the PAQ database entry TUI please select one of the following options and hit enter:")
@@ -68,14 +71,15 @@ def filterSLRP():
         'NOA1', 'NOA1 Desc', 'Retention Incentive Pay Last PPE',
         'Retention Incentive Percent', 'Student Loan Repayment Amount',
         'Annual Amount']]
-
-    for i in filtered_df.index:
+    emptdat = open("employees.dat", "w")
+    for i in range(len(filtered_df)):
         paq = PAQ(filtered_df._get_value(i, 'Name Employee'), filtered_df._get_value(i, 'STEM Series'),
                   filtered_df._get_value(i, 'Employee Number'), filtered_df._get_value(i, 'Record Status'))
-        emptdat = open("employees.dat", "w")
-        emptdat.seek(paq.empID)
-        emptdat.write(str(paq.empID) + " " + str(paq.name) + " " + str(paq.field) + " " + str(paq.employed))
-        paq.paqUpdateList()
+
+    print(len(filtered_df))
+    print(paq_Arr)
+    print(len(paq_Arr))
+    emptdat.close()
 
     sf1 = StyleFrame(filter_RI, styler_obj=Styler(font_size=8))
     sf2 = StyleFrame(filter_SLRP, styler_obj=Styler(font_size=8))
